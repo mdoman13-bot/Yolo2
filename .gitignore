@@ -174,3 +174,5 @@ cython_debug/
 *.png
 *.txt
 .txt
+./results/
+*/results/
