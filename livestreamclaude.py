@@ -9,7 +9,7 @@ model = YOLO('models/yolov8n.pt')  # or use 'yolov8s.pt', 'yolov8m.pt', 'yolov8l
 
 
 # Create a video object
-video_path = "media/IMG_4583.MOV.mov"
+video_path = "media/IMG_4583.mov"
 cap = cv2.VideoCapture(video_path)
 
 

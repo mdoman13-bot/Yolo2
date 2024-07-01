@@ -5,7 +5,7 @@ from ultralytics import YOLO
 import imageio  # Import imageio for creating GIFs
 
 # Load the YOLO model
-model = YOLO("yolov8s.pt")
+model = YOLO("models/yolov8s.pt")
 
 # Define the callback function for processing
 def callback(image_slice: np.ndarray) -> sv.Detections:
@@ -17,7 +17,7 @@ bounding_box_annotator = sv.BoundingBoxAnnotator()
 label_annotator = sv.LabelAnnotator()
 
 # Open the video file
-video = cv2.VideoCapture("media/drone_cars.mp4")
+video = cv2.VideoCapture("media/IMG_0347.mov")
 
 frame_count = 0
 annotated_frames = []  # List to store annotated frames
