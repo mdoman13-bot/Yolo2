@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import imageio
 
 # Load the YOLO model
-model = YOLO("yolov8n.pt")
+model = YOLO("models/yolov8n.pt")
 
 # Function to process each frame
 def process_frame(frame: np.ndarray):

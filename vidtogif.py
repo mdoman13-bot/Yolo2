@@ -4,7 +4,7 @@ import supervision as sv
 from ultralytics import YOLO
 
 # Load the YOLO model
-model = YOLO("yolov8n.pt")
+model = YOLO("models/yolov8n.pt")
 
 # Define the callback function for processing
 def callback(image_slice: np.ndarray) -> sv.Detections:
