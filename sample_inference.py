@@ -16,7 +16,7 @@ import requests
 import copy
 # %matplotlib inline
 
-model_id = 'microsoft/Florence-2-large'
+model_id = 'microsoft/Florence-2-base-ft'
 model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True).eval().cuda()
 processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
 
