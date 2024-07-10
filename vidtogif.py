@@ -16,7 +16,7 @@ bounding_box_annotator = sv.BoundingBoxAnnotator()
 label_annotator = sv.LabelAnnotator()
 
 # Open the video file
-video = cv2.VideoCapture("media/drone_cars.mp4")
+video = cv2.VideoCapture("media/IMG_4583.mp4")
 
 frame_count = 0
 while True:
