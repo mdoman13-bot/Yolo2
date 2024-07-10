@@ -4,7 +4,15 @@ import supervision as sv
 from ultralytics import YOLO
 
 # Load the YOLO model
-model = YOLO("models/yolov8n.pt")
+# model = YOLO("models/yolov8n.pt")
+
+# Initialize a YOLO-World model
+# model = YOLO('models/yolov8s-worldv2.pt')  # or choose yolov8m/l-world.pt
+model = YOLO('models/yolov8m-worldv2.pt')
+# model.to('mps')
+# Define custom classes
+# model.set_classes(["car", "bus", "building", "traffic light", "person","tree"])
+
 
 # Define the callback function for processing
 def callback(image_slice: np.ndarray) -> sv.Detections:
@@ -42,3 +50,4 @@ while True:
 # Release the video capture object and close all windows
 video.release()
 cv2.destroyAllWindows()
+
