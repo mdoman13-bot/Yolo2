@@ -6,7 +6,7 @@ model = YOLO('models/yolov8s-worldv2.pt')  # or choose yolov8m/l-world.pt
 
 # model.to('mps')
 # Define custom classes
-model.set_classes(["car", "bus", "building", "traffic light", "person"])
+model.set_classes(["car", "bus", "building", "traffic light", "person", "brownies", "knife"])
 
 results = model.track(source="media/drone_cars.mp4", conf=0.3, iou=0.5, show=True)
 
