@@ -27,7 +27,7 @@ def callback(frame: np.ndarray, _: int) -> np.ndarray:
         annotated_frame, detections=detections)
 
 sv.process_video(
-    source_path="media/IMG_0347.mov",
+    source_path="media/drone_cars.mp4",
     target_path="media/drone_results.mp4",
     callback=callback
 )

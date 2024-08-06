@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Times</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="markets">
+                <span>S&P 500 <span class="up">+0.55%</span></span>
+                <span>Shanghai <span class="up">+0.03%</span></span>
+                <span>FTSE 100 <span class="up">+0.36%</span></span>
+                <span>Brent Crude Oil <span class="down">-0.40%</span></span>
+                <span>10 Year US Gov <span class="down">-0.60%</span></span>
+            </div>
+            <div class="login-signup">
+                <button>Subscribe</button>
+                <button>Sign In</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="navbar">
+        <ul>
+            <li>Home</li>
+            <li>World</li>
+            <li>US</li>
+            <li>Companies</li>
+            <li>Tech</li>
+            <li>Markets</li>
+            <li>Climate</li>
+            <li>Opinion</li>
+            <li>Lex</li>
+            <li>Work & Careers</li>
+            <li>Life & Arts</li>
+            <li>HTSI</li>
+        </ul>
+    </nav>
+    
+    <main class="content">
+        <section class="main-article">
+            <h1>Donald Trump ‘safe’ after apparent shooting at Pennsylvania rally</h1>
+            <p>Republican candidate was escorted away by Secret Service agents with blood on ear and across cheek</p>
+            <p class="updated">UPDATED 10 MINUTES AGO</p>
+        </section>
+        
+        <aside class="sidebar">
+            <div class="editor-picks">
+                <h3>Editor's picks</h3>
+                <article>
+                    <h4>On Wall Street.</h4>
+                    <p>Excesses of cheap money era are provoking ‘creditor-on-creditor violence’</p>
+                </article>
+                <article>
+                    <h4>Would you survive 378 days of team bonding? Nasa takes the test</h4>
+                    <p>Emma Jacobs</p>
+                </article>
+            </div>
+        </aside>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Financial Times</p>
+    </footer>
+</body>
+<style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.header {
+    background-color: #f0f0e9;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.header .markets span {
+    margin-right: 10px;
+}
+
+.header .markets .up {
+    color: green;
+}
+
+.header .markets .down {
+    color: red;
+}
+
+.header .login-signup button {
+    background-color: #00539f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.navbar {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    padding: 20px;
+}
+
+.main-article {
+    flex: 3;
+    margin-right: 20px;
+}
+
+.main-article h1 {
+    font-size: 24px;
+}
+
+.main-article .updated {
+    color: red;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #f0f0e9;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+}
+
+.sidebar .editor-picks h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.sidebar .editor-picks article {
+    margin-bottom: 20px;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+</style>
+</html>
