@@ -11,7 +11,7 @@ from ultralytics import YOLO
 model = YOLO('models/yolov8m-worldv2.pt')
 # model.to('mps')
 # Define custom classes
-# model.set_classes(["car", "bus", "building", "traffic light", "person","tree"])
+model.set_classes(["pool", "car"])
 
 
 # Define the callback function for processing
