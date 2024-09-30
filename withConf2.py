@@ -7,7 +7,7 @@ cap = cv2.VideoCapture("media/cars.m4v")
 
 model = YOLO("yolo11n.pt")
 freq_dict = {}
-#test
+#test2
 # Get the dimensions of the input video
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
