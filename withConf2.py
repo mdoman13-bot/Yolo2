@@ -3,9 +3,9 @@ from ultralytics import YOLO
 import numpy as np
 import matplotlib.pyplot as plt
 
-cap = cv2.VideoCapture("media/newvid2.mp4")
+cap = cv2.VideoCapture("media/cars.m4v")
 
-model = YOLO("models/YOLOv8m.pt")
+model = YOLO("yolo11n.pt")
 freq_dict = {}
 
 # Get the dimensions of the input video
