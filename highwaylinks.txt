@@ -1,2 +1,3 @@
 https://511in.org/@-86.161,40.01937,13?show=incidents,normalCameras,stationsAlert,weatherWarningsAreaEvents,plowCameras,flooding#camera/3813/2510289780
 These links can be used to access png's of Indiana Highway cameras
+Just use curl [link] --output "name of file".png
