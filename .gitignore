@@ -172,6 +172,6 @@ cython_debug/
 *.m4v
 *.pt
 *.png
-
+*.jpg
 ./results/
 */results/
