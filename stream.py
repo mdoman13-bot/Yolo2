@@ -1,11 +1,12 @@
 import cv2
-
+import ffmpeg
 # Replace with the actual URL of the video stream
 video_url = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w583159886_46.ts"
 
 # Open the video stream
 cap = cv2.VideoCapture(video_url)
 
+# stream = ffmpeg.input(video_url)
 if not cap.isOpened():
     print("Error: Cannot open video stream")
     exit()
