@@ -186,8 +186,8 @@ class StreamProcessor:
 
 # Example usage
 if __name__ == "__main__":
-    STREAM_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w741173679_3.ts"
-    
+    # STREAM_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w741173679_3.ts"
+    STREAM_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w2099152170_3.ts"
     # You can specify the path to ffmpeg.exe if it's not in PATH
     # FFMPEG_PATH = r"C:\path\to\ffmpeg.exe"
     # processor = StreamProcessor(STREAM_URL, FFMPEG_PATH)

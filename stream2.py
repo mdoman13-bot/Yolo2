@@ -251,8 +251,8 @@ class StreamProcessor:
 
 # Example usage
 if __name__ == "__main__":
-    STREAM_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w741173679_3.ts"
-    BASE_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD"
+    STREAM_URL = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/media_w1021746165_105.ts"
+    BASE_URL = "https://public.carsprogram.org/cameras/IN/INDOT_262__7ypTvHKbwMpXYJD"
     
     # Analyze TS naming pattern
     analyze_ts_pattern(BASE_URL)
