@@ -162,8 +162,8 @@ class HLSStreamCapture:
 # Example usage
 if __name__ == "__main__":
     # Example base URL - replace with your camera's base URL
-    BASE_URL = "https://public.carsprogram.org/cameras/IN/INDOT_262__7ypTvHKbwMpXYJD"
-    
+    # BASE_URL = "https://public.carsprogram.org/cameras/IN/INDOT_262__7ypTvHKbwMpXYJD"
+    BASE_URL = "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8"
     # Initialize and run the capture
     capture = HLSStreamCapture(BASE_URL)
     capture.run()
