@@ -1,9 +1,9 @@
 from ultralytics import YOLO
 import cv2
-image = cv2.imread('media/beach.png')
-cv2.imshow('Beach Image', image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# image = cv2.imread('media/beach.png')
+# cv2.imshow('Beach Image', image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 # Load a model
 model = YOLO("models/yolo11n.pt")  # load an official detection model
 # model = YOLO("yolo11n-seg.pt")  # load an official segmentation model
