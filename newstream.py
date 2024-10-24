@@ -1,5 +1,7 @@
 import cv2
+import torch
 from ultralytics import YOLO
+import matplotlib.pyplot as plt
 
 # Load the YOLO model
 model = YOLO('yolov8s.pt')  # Replace with the path to your model
@@ -24,12 +26,17 @@ while True:
             confidence = box.conf
 
             cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
+            
+            # Assuming `confidence` is a tensor, convert it to a float
+            confidence = confidence.item() if isinstance(confidence, torch.Tensor) else confidence
             cv2.putText(frame, f'{label} {confidence:.2f}', (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
-    cv2.imshow('Live Stream', frame)
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # Use matplotlib to display the frame
+    plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    plt.axis('off')
+    plt.show()
+    plt.pause(0.001)  # Pause to allow the plot to update
+    plt.clf()  # Clear the plot for the next frame
 
 cap.release()
 cv2.destroyAllWindows()
