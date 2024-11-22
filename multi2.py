@@ -4,6 +4,10 @@ from ultralytics import YOLO
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Add these variables at the beginning of your script
+record_heatmap = False
+run_yolo = False
+
 # Load the YOLO model
 model = YOLO('models/yolov10n.pt')  # Replace with the path to your model
 
@@ -25,8 +29,17 @@ cv2.namedWindow('Live Detection', cv2.WINDOW_NORMAL)
 def draw_text(frame, text, position, color=(0, 255, 0), font_scale=0.5, thickness=1):
     cv2.putText(frame, text, position, cv2.FONT_HERSHEY_SIMPLEX, font_scale, color, thickness)
 
-# Function to resize frame to a common size
-def resize_frame(frame, size=(640, 480)):
+# Determine the minimum resolution among all streams
+min_width, min_height = float('inf'), float('inf')
+for cap in caps:
+    ret, frame = cap.read()
+    if ret:
+        height, width = frame.shape[:2]
+        min_width = min(min_width, width)
+        min_height = min(min_height, height)
+
+# Function to resize frame to the minimum resolution
+def resize_frame(frame, size=(min_width, min_height)):
     return cv2.resize(frame, size)
 
 while True:
@@ -34,36 +47,37 @@ while True:
     for cap in caps:
         ret, frame = cap.read()
         if not ret:
-            frame = np.zeros((480, 640, 3), dtype=np.uint8)  # Create a black frame
+            frame = np.zeros((min_height, min_width, 3), dtype=np.uint8)  # Create a black frame
             draw_text(frame, 'Loading Failed', (50, 50), color=(0, 0, 255))
         else:
-            # Perform object detection
-            results = model.predict(frame)
+            if run_yolo:
+                # Perform object detection
+                results = model.predict(frame)
 
-            # Display the results
-            for result in results:
-                for box in result.boxes:
-                    xmin, ymin, xmax, ymax = map(int, box.xyxy[0])
-                    class_id = int(box.cls[0])
-                    confidence = float(box.conf[0])  # Convert tensor to scalar
+                # Display the results
+                for result in results:
+                    for box in result.boxes:
+                        xmin, ymin, xmax, ymax = map(int, box.xyxy[0])
+                        class_id = int(box.cls[0])
+                        confidence = float(box.conf[0])  # Convert tensor to scalar
 
-                    # Get class name if available, otherwise use class ID
-                    label = model.names[class_id] if hasattr(model, 'names') else str(class_id)
-                    
-                    # Draw bounding box with smaller thickness
-                    cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 1)
-                    
-                    # Draw label with smaller font scale
-                    font_scale = 0.5
-                    font_thickness = 1
-                    label_size, _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
-                    label_x = xmin
-                    label_y = ymin - 10 if ymin - 10 > 10 else ymin + 10
-                    cv2.putText(frame, label, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 255, 0), font_thickness)
+                        # Get class name if available, otherwise use class ID
+                        label = model.names[class_id] if hasattr(model, 'names') else str(class_id)
+                        
+                        # Draw bounding box with smaller thickness
+                        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 1)
+                        
+                        # Draw label with smaller font scale
+                        font_scale = 0.5
+                        font_thickness = 1
+                        label_size, _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
+                        label_x = xmin
+                        label_y = ymin - 10 if ymin - 10 > 10 else ymin + 10
+                        cv2.putText(frame, label, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 255, 0), font_thickness)
 
-            draw_text(frame, 'Stream Loading', (50, 50))
+                draw_text(frame, 'Stream Loading', (50, 50))
 
-        # Resize frame to a common size
+        # Resize frame to the minimum resolution
         frame = resize_frame(frame)
         frames.append(frame)
 
