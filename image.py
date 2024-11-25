@@ -1,7 +1,13 @@
-from ultralytics import FastSAM
-# from ultralytics.models.fastsam import FastSAMPrompt
+from ultralytics import YOLO
 
-src = "media/beach.jpg"
-model = FastSAM("FastSAM-s.pt")
-results: list = model.predict(source=src, show=True)
-# reference https://docs.ultralytics.com/models/fast-sam/
+# Initialize a YOLO-World model
+model = YOLO("models/yolov8s-world.pt")  # or choose yolov8m/l-world.pt
+
+# Define custom classes
+model.set_classes(["person", "pool", "water"])
+
+# Execute prediction for specified categories on an image
+results = model.predict("media/beach2.jpg")
+
+# Show results
+results[0].show()
