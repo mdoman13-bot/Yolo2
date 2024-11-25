@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 cap = cv2.VideoCapture("media/newvid2.mp4")
 
-model = YOLO("models/yolov8s-seg.pt")
+model = YOLO("models/yolov11n-seg.pt")
 freq_dict = {}
 
 # Get the frame width and height from the video

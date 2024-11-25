@@ -3,7 +3,7 @@ import numpy as np
 import supervision as sv
 from ultralytics import YOLO
 
-model = YOLO("models/yolov8x.pt")
+model = YOLO("models/yolo11n.pt")
 image = cv2.imread("media/beach.png")
 
 def callback(image_slice: np.ndarray) -> sv.Detections:
