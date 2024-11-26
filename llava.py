@@ -18,7 +18,7 @@ transformers.logging.disable_progress_bar()
 warnings.filterwarnings('ignore')
 
 # set device
-torch.set_default_device('cpu')  # or 'cpu'
+torch.set_default_device('mps')  # or 'cpu'
 
 model_name = 'qnguyen3/nanoLLaVA-1.5'
 
@@ -50,7 +50,7 @@ text_chunks = [tokenizer(chunk).input_ids for chunk in text.split('<image>')]
 input_ids = torch.tensor(text_chunks[0] + [-200] + text_chunks[1], dtype=torch.long).unsqueeze(0)
 
 # image, sample images can be found in images folder
-image = Image.open('/media/pool5.png')
+image = Image.open('media/pool5.png')
 image_tensor = model.process_images([image], model.config).to(dtype=model.dtype)
 
 # generate
