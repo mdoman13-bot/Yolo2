@@ -166,12 +166,10 @@ cython_debug/
 .models/
 .pt
 
-./media/
 *.mov
 *.mp4
 *.m4v
 *.pt
-*.png
 *.jpg
 ./results/
 */results/
