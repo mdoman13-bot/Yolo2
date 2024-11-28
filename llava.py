@@ -18,7 +18,7 @@ transformers.logging.disable_progress_bar()
 warnings.filterwarnings('ignore')
 
 # set device
-torch.set_default_device('mps')  # or 'cpu'
+torch.set_default_device('cuda')  # or 'cpu'
 
 model_name = 'qnguyen3/nanoLLaVA-1.5'
 
