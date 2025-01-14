@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Load the YOLO model
 model = YOLO('models/yolov8n.pt')  # Replace with the path to your model
-
+model.to('cuda')  # Use GPU for inference
 # List of stream URLs
 stream_urls = [
     "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8",
