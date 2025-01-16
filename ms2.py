@@ -39,6 +39,17 @@ stream_urls = [
 if len(stream_urls) > 16:
     stream_urls = stream_urls[:16]
 
+layout = []
+max_cols = 4
+total_streams = len(stream_urls)
+rows = math.ceil(total_streams / max_cols)
+
+index = 0
+for _ in range(rows):
+    row_count = min(max_cols, total_streams - index)
+    layout.append([1] * row_count + [0] * (max_cols - row_count))
+    index += row_count
+
 frames_dict = {}
 should_stop = False
 
@@ -57,8 +68,10 @@ def process_stream(url):
     cap.release()
 
 def find_grid_dims(n):
-    rows = int(np.ceil(np.sqrt(n)))
-    cols = int(np.ceil(n / rows))
+    if n <= 4:
+        return (1, n)
+    cols = min(4, n)
+    rows = math.ceil(n / cols)
     return rows, cols
 
 def tile_frames(items):
