@@ -53,9 +53,10 @@ def process_stream(url):
     cap.release()
 
 def find_grid_dims(n):
-    n = min(n, 16)  # Limit to 16
-    rows = int(math.ceil(math.sqrt(n)))
-    cols = int(math.ceil(n / rows))
+    if n <= 4:
+        return (1, n)
+    cols = min(4, n)
+    rows = math.ceil(n / cols)
     return rows, cols
 
 def tile_frames(items):
@@ -75,7 +76,7 @@ def tile_frames(items):
     for r in range(rows):
         row = combined_pairs[idx]
         for c in range(1, cols):
-            row = np.hstack((row, combined_pairs[idx+c]))
+            row = np.hstack((row, combined_pairs[idx + c]))
         final_rows.append(row)
         idx += cols
     return np.vstack(final_rows)
