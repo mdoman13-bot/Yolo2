@@ -28,6 +28,7 @@ stream_url = "https://skysfs4.trafficwise.org/rtplive/INDOT_32_8Aa6tXj3dYK35_P2/
 # stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_591_ikD7yYJFi8SlJxfy/playlist.m3u8"
 
 cap = cv2.VideoCapture(stream_url)
+cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
 # Create a window
 cv2.namedWindow('Live Detection', cv2.WINDOW_NORMAL)
