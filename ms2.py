@@ -35,6 +35,10 @@ stream_urls = [
     "https://skysfs4.trafficwise.org/rtplive/INDOT_260_l6kGZjfYqqL9vgE9/playlist.m3u8"
 ]
 
+# Ensure no more than 16 streams
+if len(stream_urls) > 16:
+    stream_urls = stream_urls[:16]
+
 frames_dict = {}
 should_stop = False
 
@@ -53,10 +57,8 @@ def process_stream(url):
     cap.release()
 
 def find_grid_dims(n):
-    if n <= 4:
-        return (1, n)
-    cols = min(4, n)
-    rows = math.ceil(n / cols)
+    rows = int(np.ceil(np.sqrt(n)))
+    cols = int(np.ceil(n / rows))
     return rows, cols
 
 def tile_frames(items):
