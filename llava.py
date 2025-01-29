@@ -18,7 +18,7 @@ transformers.logging.disable_progress_bar()
 warnings.filterwarnings('ignore')
 
 # set device
-torch.set_default_device('cuda')  # or 'cpu'
+# torch.set_default_device('cuda')  # or 'cpu'
 
 model_name = 'qnguyen3/nanoLLaVA-1.5'
 
@@ -33,7 +33,7 @@ tokenizer = AutoTokenizer.from_pretrained(
     trust_remote_code=True)
 
 # text prompt
-prompt = 'Describe this image in detail'
+prompt = 'Count the number of pools in this image'
 
 messages = [
     {"role": "user", "content": f'<image>\n{prompt}'}
