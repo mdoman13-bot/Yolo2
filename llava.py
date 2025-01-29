@@ -18,7 +18,7 @@ transformers.logging.disable_progress_bar()
 warnings.filterwarnings('ignore')
 
 # set device
-torch.set_default_device('cuda')  # or 'cpu'
+torch.set_default_device('cpu')  # or 'cpu'
 
 model_name = 'qnguyen3/nanoLLaVA-1.5'
 
@@ -26,14 +26,14 @@ model_name = 'qnguyen3/nanoLLaVA-1.5'
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype=torch.float16,
-    device_map='auto',
+    device_map='cpu',
     trust_remote_code=True)
 tokenizer = AutoTokenizer.from_pretrained(
     model_name,
     trust_remote_code=True)
 
 # text prompt
-prompt = 'Count the number of pools in this image'
+prompt = "Count the number of pools in this bird's eye view image"
 
 messages = [
     {"role": "user", "content": f'<image>\n{prompt}'}
