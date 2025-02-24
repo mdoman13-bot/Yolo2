@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the YOLO model
-model = YOLO('models/yolo11x')  # Replace with the path to your model
-model.to('cuda') if torch.cuda.is_available() else model.to('cpu') # Use GPU for inference
+model = YOLO('models/yolo12m')  # Replace with the path to your model
+model.to('cuda') if torch.cuda.is_available() else model.to('mps') # Use GPU for inference
 # To get this to work, I had to pip uninstall opencv-python then pip install opencv-python
 # Open the live stream
 # keystone -> 31
