@@ -3,7 +3,7 @@ import torch
 from ultralytics import YOLO
 
 # Load the YOLO model
-model = YOLO('models/yolov8s.pt')  # Replace with the path to your model
+model = YOLO('models/yolo11n.pt')  # Replace with the path to your model
 # To get this to work, I had to pip uninstall opencv-python then pip install opencv-python
 # Open the live stream
 stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8"
