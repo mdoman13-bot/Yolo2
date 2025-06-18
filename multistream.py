@@ -8,7 +8,17 @@ import math
 
 # Load the YOLO model
 model = YOLO('models/yolo11n')  # Replace with the path to your model
-model.to('cuda') if torch.cuda.is_available() else model.to('cpu') # Use GPU for inference
+# Check if CUDA or MPS is available and move the model to the appropriate device, else default to CPU
+if torch.cuda.is_available():
+    model.to('cuda')
+    print("Using CUDA backend")
+elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+    model.to('mps')
+    print("Using MPS backend")
+else:
+    model.to('cpu')
+    print("Using CPU backend")
+# Use GPU for inference
 # To get this to work, I had to pip uninstall opencv-python then pip install opencv-python
 # Open the live stream
 # keystone -> 31
