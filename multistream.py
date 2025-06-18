@@ -11,38 +11,40 @@ model = YOLO('models/yolo11n')  # Replace with the path to your model
 # Check if CUDA or MPS is available and move the model to the appropriate device, else default to CPU
 if torch.cuda.is_available():
     model.to('cuda')
-    print("Using CUDA backend")
-elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+    print('Using CUDA backend')
+elif hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
     model.to('mps')
-    print("Using MPS backend")
+    print('Using MPS backend')
 else:
     model.to('cpu')
-    print("Using CPU backend")
+    print('Using CPU backend')
 # Use GPU for inference
 # To get this to work, I had to pip uninstall opencv-python then pip install opencv-python
 # Open the live stream
 # keystone -> 31
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8"
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8'
 
-# stream_url = "https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/playlist.m3u8"
+# stream_url = 'https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/playlist.m3u8'
 # Westfield crossover with state road 32
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_703_I3RqqDqcbqI1A_Z3/playlist.m3u8"
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_703_I3RqqDqcbqI1A_Z3/playlist.m3u8'
 
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_261_B6pE8gVw3RJ7YdXn/playlist.m3u8"
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_261_B6pE8gVw3RJ7YdXn/playlist.m3u8'
 # 31 and 151st
-# stream_url = "https://skysfs4.trafficwise.org/rtplive/INDOT_260_l6kGZjfYqqL9vgE9/playlist.m3u8"
+# stream_url = 'https://skysfs4.trafficwise.org/rtplive/INDOT_260_l6kGZjfYqqL9vgE9/playlist.m3u8'
 
 
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8"
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8'
 # keystone to allisonville
-stream_url = "https://skysfs4.trafficwise.org/rtplive/INDOT_32_8Aa6tXj3dYK35_P2/playlist.m3u8"
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_579_6c5KpTSKIJWts7HU/playlist.m3u8"
-# stream_url = "https://skysfs3.trafficwise.org/rtplive/INDOT_591_ikD7yYJFi8SlJxfy/playlist.m3u8"
+stream_url = 'https://skysfs4.trafficwise.org/rtplive/INDOT_32_8Aa6tXj3dYK35_P2/playlist.m3u8'
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_579_6c5KpTSKIJWts7HU/playlist.m3u8'
+# stream_url = 'https://skysfs3.trafficwise.org/rtplive/INDOT_591_ikD7yYJFi8SlJxfy/playlist.m3u8'
 
 # Replace single stream with multiple streams
 stream_urls = [
-    "https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8",
-    "https://skysfs4.trafficwise.org/rtplive/INDOT_260_l6kGZjfYqqL9vgE9/playlist.m3u8"
+    'https://skysfs3.trafficwise.org/rtplive/INDOT_257_IlQ0iAJPF3zCjVhF/playlist.m3u8',
+    'https://skysfs4.trafficwise.org/rtplive/INDOT_260_l6kGZjfYqqL9vgE9/playlist.m3u8',
+    'https://skysfs3.trafficwise.org/rtplive/INDOT_579_6c5KpTSKIJWts7HU/playlist.m3u8',
+    'https://skysfs4.trafficwise.org/rtplive/INDOT_262__7ypTvHKbwMpXYJD/playlist.m3u8'
 ]
 
 frames_dict = {}
@@ -99,7 +101,7 @@ for url in stream_urls:
 while True:
     tiled = tile_frames(list(frames_dict.values()))
     if tiled is not None:
-        cv2.imshow("Combined Streams", tiled)
+        cv2.imshow('Combined Streams', tiled)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         should_stop = True
         break
