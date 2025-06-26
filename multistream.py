@@ -53,11 +53,23 @@ should_stop = False
 def process_stream(url):
     global should_stop
     cap = cv2.VideoCapture(url)
+    # Get class indices for 'train', 'cow', and 'traffic light'
+    filter_classes = {'train', 'cow', 'traffic light'}
+    filter_class_indices = set()
+    if hasattr(model, 'names'):
+        for idx, name in model.names.items():
+            if name.lower() in filter_classes:
+                filter_class_indices.add(idx)
     while not should_stop:
         ret, frame = cap.read()
         if not ret:
             continue
         results = model(frame)
+        # Filter out unwanted detections
+        if results and filter_class_indices:
+            det = results[0]
+            mask = ~np.isin(det.boxes.cls.cpu().numpy(), list(filter_class_indices))
+            det.boxes = det.boxes[mask]
         # Example heatmap placeholder, replace as needed
         heatmap = np.zeros_like(frame)
         # Store combined data
