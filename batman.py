@@ -2,7 +2,6 @@ import tkinter as tk
 import cv2
 import numpy as np
 import math
-import threading
 import time
 
 streams = [
@@ -30,34 +29,40 @@ stream_urls = [
 
 frames_dict = {}
 status_dict = {}
-should_stop = False
+caps = []
 
-def process_stream(idx, url):
-    global should_stop
-    status_dict[idx] = "Connecting"
-    cap = cv2.VideoCapture(url)
-    last_success = time.time()
-    while not should_stop:
-        ret, frame = cap.read()
-        if not ret:
-            # Try to reconnect every 5 seconds if failed
+def open_all_streams():
+    for idx, url in enumerate(stream_urls):
+        cap = cv2.VideoCapture(url)
+        caps.append(cap)
+        status_dict[idx] = "Connecting"
+
+def read_all_streams():
+    for idx, cap in enumerate(caps):
+        if not cap.isOpened():
             status_dict[idx] = "Offline"
             frame = np.zeros((240, 320, 3), dtype=np.uint8)
             cv2.putText(frame, 'No Signal', (50, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
             frames_dict[idx] = frame
+            # Try to reconnect
             cap.release()
-            time.sleep(5)
-            if should_stop:
-                break
+            caps[idx] = cv2.VideoCapture(stream_urls[idx])
             status_dict[idx] = "Reconnecting"
-            cap = cv2.VideoCapture(url)
             continue
+        ret, frame = cap.read()
+        if not ret or frame is None:
+            status_dict[idx] = "Offline"
+            frame = np.zeros((240, 320, 3), dtype=np.uint8)
+            cv2.putText(frame, 'No Signal', (50, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+            frames_dict[idx] = frame
+            # Try to reconnect
+            cap.release()
+            caps[idx] = cv2.VideoCapture(stream_urls[idx])
+            status_dict[idx] = "Reconnecting"
         else:
             frame = cv2.resize(frame, (320, 240))
             frames_dict[idx] = frame
             status_dict[idx] = "Online"
-            last_success = time.time()
-    cap.release()
 
 def find_grid_dims(n):
     n = min(n, 16)
@@ -114,42 +119,33 @@ def update_status_labels(labels):
         else:
             label.config(text=streams[idx], fg="gray")
 
+def update_opencv_window():
+    frames = [frames_dict.get(i, np.zeros((240, 320, 3), dtype=np.uint8)) for i in range(len(stream_urls))]
+    tiled = tile_frames(frames)
+    if tiled is not None:
+        cv2.imshow('Security Camera Grid', tiled)
+    # Use a very short waitKey to keep window responsive but not block Tk
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        root.quit()
+        for cap in caps:
+            cap.release()
+        cv2.destroyAllWindows()
+        return
+    root.after(50, update_opencv_window)  # Update OpenCV window every 50ms
+
+def main_loop():
+    read_all_streams()
+    update_status_labels(labels)
+    root.after(200, main_loop)  # ~5 FPS
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Batcave Security Grid")
     labels = create_grid(root, streams, columns=3)
-
-    # Start stream threads BEFORE mainloop
-    threads = []
-    for idx, url in enumerate(stream_urls):
-        t = threading.Thread(target=process_stream, args=(idx, url), daemon=True)
-        t.start()
-        threads.append(t)
-
-    def periodic_update():
-        update_status_labels(labels)
-        root.after(1000, periodic_update)
-
-    root.after(1000, periodic_update)
-    # Start OpenCV window in a separate thread
-    def show_opencv():
-        global should_stop
-        while not should_stop:
-            frames = [frames_dict.get(i, np.zeros((240, 320, 3), dtype=np.uint8)) for i in range(len(stream_urls))]
-            tiled = tile_frames(frames)
-            if tiled is not None:
-                cv2.imshow('Security Camera Grid', tiled)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                should_stop = True
-                break
-        cv2.destroyAllWindows()
-
-    opencv_thread = threading.Thread(target=show_opencv, daemon=True)
-    opencv_thread.start()
-
-    try:
-        root.mainloop()
-    finally:
-        should_stop = True
-        for t in threads:
-            t.join(timeout=2)
+    open_all_streams()
+    root.after(100, main_loop)
+    root.after(200, update_opencv_window)
+    root.mainloop()
+    for cap in caps:
+        cap.release()
+    cv2.destroyAllWindows()
