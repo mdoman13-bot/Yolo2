@@ -3,7 +3,7 @@
 4‑stream HLS viewer (side‑by‑side or 2×2 grid)
 
 Requirements:
-    pip install ffmpeg-python opencv-python-headless
+    pip install ffmpeg-python opencv-python
 """
 
 import subprocess
@@ -11,6 +11,7 @@ import sys
 import time
 from pathlib import Path
 from typing import List, Tuple
+import os
 
 import cv2
 import numpy as np
@@ -36,10 +37,7 @@ LAYOUT = "grid"  # options: "hstack", "vstack", "grid"
 WINDOW_NAME = "4‑stream viewer"
 WINDOW_WIDTH, WINDOW_HEIGHT = TARGET_SIZE[0] * 2, TARGET_SIZE[1] * 2
 
-# Ensure ffmpeg is in PATH or set the path manually
-ffmpeg._FFMPEG_BIN = r"C:\Program Files\FFMPEG\ffmpeg-7.0.2-essentials_build\bin\ffmpeg.exe"
-
-
+ffmpeg_path = r"C:\Program Files\FFMPEG\ffmpeg-7.0.2-essentials_build\bin\ffmpeg.exe"
 # --------------------------------------------------------------------------- #
 # Helper functions ------------------------------------------------------------ #
 # --------------------------------------------------------------------------- #
@@ -60,11 +58,12 @@ def spawn_ffmpeg_reader(url: str, width: int, height: int) -> subprocess.Popen:
             s=f"{width}x{height}",
             r=30,          # try to read at 30 fps; FFmpeg will drop frames if it can't keep up
         )
-    )
-    process = (
-        cmd
         .global_args("-hide_banner", "-loglevel", "error")  # suppress noise
-        .run_async(pipe_stdout=True, pipe_stderr=subprocess.PIPE)
+    )
+    process = cmd.run_async(
+        pipe_stdout=True,
+        pipe_stderr=subprocess.PIPE,
+        cmd=ffmpeg_path  # use the specified ffmpeg binary
     )
     return process
 
